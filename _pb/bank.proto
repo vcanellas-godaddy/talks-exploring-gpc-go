@@ -1,0 +1,28 @@
+// protoc bank.proto --go_out=plugins=grpc:.
+
+syntax="proto3";
+
+package transaction;
+
+message AccountBalance{
+    double totalBalance = 1;
+}
+
+message Account {
+    int64 id = 1;
+    AccountBalance balance = 2;
+}
+
+message  Transaction {
+    Account Origin = 1;
+    Account Destination = 2;
+    double Value = 3;
+}
+
+service TransactionService {
+    rpc Deposit(Transaction) returns (Account);
+    rpc Withdrawal(Transaction) returns (Account);
+    rpc Transfer(Transaction) returns (Account);
+}
+
+
