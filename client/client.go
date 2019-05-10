@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/labstack/gommon/log"
 	pbBank "github.com/vladimirvasconcelos/labGrpc/_pb"
 	"google.golang.org/grpc"
@@ -25,7 +26,7 @@ var Account002 = &pbBank.Account{
 func main() {
 	println("Starting client...")
 
-	client, err := grpc.Dial(":8080", grpc.WithInsecure())
+	client, err := grpc.Dial(":8085", grpc.WithInsecure())
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -35,21 +36,21 @@ func main() {
 	println("Client Started")
 
 	transaction := &pbBank.Transaction{
-		Destination:Account001,
-		Value: 300.00,
+		Destination: Account001,
+		Value:       300.00,
 	}
-	println("[BEFORE]",transaction.Destination.String())
+	println("[BEFORE]", transaction.Destination.String())
 	DepositValue(ts, transaction)
 	println("\n[Press enter]\n")
 	fmt.Scanln()
 	transaction2 := &pbBank.Transaction{
-		Origin:Account001,
-		Destination:Account002,
-		Value: 50.00,
+		Origin:      Account001,
+		Destination: Account002,
+		Value:       50.00,
 	}
 
-	println("[BEFORE]",transaction2.Origin.String())
-	println("[BEFORE]",transaction2.Destination.String())
+	println("[BEFORE]", transaction2.Origin.String())
+	println("[BEFORE]", transaction2.Destination.String())
 	TransferValue(ts, transaction2)
 
 }
@@ -68,7 +69,6 @@ func TransferValue(ts pbBank.TransactionServiceClient, transaction *pbBank.Trans
 	if err != nil {
 		log.Fatal(err.Error())
 	}
-	println("[AFTER]",transaction.Origin.String())
-	println("[AFTER]",creditedAccount.String())
+	println("[AFTER]", transaction.Origin.String())
+	println("[AFTER]", creditedAccount.String())
 }
-

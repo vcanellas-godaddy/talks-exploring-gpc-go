@@ -2,17 +2,16 @@ package main
 
 import (
 	"context"
+	"net"
+	"time"
+
 	"github.com/labstack/gommon/color"
 	"github.com/labstack/gommon/log"
 	pbBank "github.com/vladimirvasconcelos/labGrpc/_pb"
 	"google.golang.org/grpc"
-	"net"
-	"time"
 )
 
 type server struct{}
-
-
 
 func (*server) Withdrawal(ctx context.Context, req *pbBank.Transaction) (*pbBank.Account, error) {
 	// Receive transaction values
@@ -21,8 +20,7 @@ func (*server) Withdrawal(ctx context.Context, req *pbBank.Transaction) (*pbBank
 
 	// Operation
 	debitAccount.Balance.TotalBalance -= value
-	return debitAccount,nil
-
+	return debitAccount, nil
 
 }
 
@@ -52,7 +50,7 @@ func (s *server) Transfer(ctx context.Context, req *pbBank.Transaction) (credite
 
 func main() {
 	println("Starting server...")
-	lis, err := net.Listen("tcp", ":8080")
+	lis, err := net.Listen("tcp", ":8085")
 	if err != nil {
 		log.Fatalf("Failed to listen: %v", err)
 	}
