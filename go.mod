@@ -8,5 +8,5 @@ require (
 	github.com/mattn/go-isatty v0.0.7 // indirect
 	github.com/valyala/fasttemplate v1.0.1 // indirect
 	github.com/vladimirvasconcelos/labGrpc v0.0.0-20190415234249-86942a622991
-	google.golang.org/grpc v1.20.1
+	google.golang.org/grpc v1.53.0
 )
